@@ -3,6 +3,7 @@ kind:  Deployment
 metadata:
   name: server
 spec:
+  replicas: 2
   selector:
     matchLabels:
       role: server
@@ -24,7 +25,7 @@ metadata:
   name: server
 spec:
   ports:
-    - port: 8080
+    - port: 80
       targetPort: 8080
   selector:
     role: server
