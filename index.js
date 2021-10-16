@@ -1,4 +1,4 @@
-const express = require("express")
+onst express = require("express")
 
 class Application {
   #server = null
@@ -19,6 +19,11 @@ class Application {
         port: process.env.PORT,
         namespace: process.env.KUBERNETES_NAMESPACE,
         env: process.env.NODE_ENV
+      })
+    })
+    this.app.get("/", function(req, res){
+      return res.status(200).json({
+        rcaas: true
       })
     })
   }

@@ -1,0 +1,30 @@
+apiVersion: V1
+kind:  Deployment
+metadata:
+  name: server
+spec:
+  selector:
+    matchLabels:
+      role: server
+  template:
+    metadata:
+      labels:
+        role: server
+    spec:
+      containers:
+        - name: server
+          image: notfound
+          ports:
+            - containerPort: 8080
+---
+
+apiVersion: V1
+kind: Service
+metadata:
+  name: server
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    role: server
