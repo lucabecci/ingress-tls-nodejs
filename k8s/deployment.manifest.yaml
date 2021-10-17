@@ -1,31 +1,40 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  namespace: server-ns
   name: server
 spec:
   replicas: 2
   selector:
     matchLabels:
-      role: server
+      app: server
   template:
     metadata:
       labels:
-        role: server
+        app: server
     spec:
       containers:
         - name: server
-          image: notfound
+          image: lucabecci/treggo-staging
           ports:
             - containerPort: 8080
+          env:
+            - name: PORT
+              value: "8080"
+            - name: KUBERNETES_NAMESPACE
+              value: "STAGING_TREGGO_K8S"
+            - name: NODE_ENV
+              value: "prod"
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
+  namespace: server-ns
   name: server
 spec:
   ports:
     - port: 80
       targetPort: 8080
   selector:
-    role: server
+    app: server
